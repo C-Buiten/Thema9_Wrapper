@@ -1,4 +1,4 @@
-import weka.classifiers.rules.OneR;
+import weka.classifiers.AbstractClassifier;
 import weka.core.Instances;
 import weka.core.converters.ConverterUtils.DataSource;
 
@@ -20,26 +20,26 @@ public class Wrapper {
         Instances data;
         try {
             DataSource source = new DataSource(file);
-            data = source.getDataSet();
+             data = source.getDataSet();
             if (data.classIndex() == -1) {
                 data.setClassIndex(data.numAttributes() - 1);
             }
         } catch (Exception e) {
             throw new IOException("Error reading file.");
         }
-        OneR oneR = loadModel();
-        classify(oneR, data);
+        AbstractClassifier abstractClassifier = loadModel();
+        classify(abstractClassifier, data);
     }
 
-    private OneR loadModel() throws Exception {
-        String model = "src/main/resources/oneR.model";
-        return (OneR) weka.core.SerializationHelper.read(model);
+    private AbstractClassifier loadModel() throws Exception {
+        String model = "src/main/resources/breastcancer.model";
+        return (AbstractClassifier) weka.core.SerializationHelper.read(model);
     }
 
-    private void classify(OneR concept, Instances data) throws Exception {
+    private void classify(AbstractClassifier classifier, Instances data) throws Exception {
         Instances instances = new Instances(data);
         for (int i = 0; i < data.numInstances(); i++){
-            double label = concept.classifyInstance(data.instance(i));
+            double label = classifier.classifyInstance(data.instance(i));
             instances.instance(i).setClassValue(label);
         }
         System.out.println(instances);

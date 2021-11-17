@@ -6,7 +6,7 @@
 @attribute 'Single_Epithelial_Cell_Size' numeric
 @attribute 'Bare_Nuclei' numeric
 @attribute 'Bland_Chromatin' numeric
-@attribute 'Class' {FALSE, TRUE}
+@attribute 'Class' {"Benign", "Malignant"}
 @data
 5,4,4,5,7,10,3,?
 3,1,1,1,2,2,3,?
